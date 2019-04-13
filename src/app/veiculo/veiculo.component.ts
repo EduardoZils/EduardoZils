@@ -56,7 +56,7 @@ export class VeiculoComponent implements OnInit {
     if (this.editando) {
       this.veiculos.forEach(item => {
         if (item.veiculoid = this.veiculoModel.id) {
-          this.veiculos.splice(this.veiculos.findIndex(d => d.veiculoId === item.veiculoid - 1), 1);
+          this.veiculos.splice(this.veiculos.findIndex(d => d.veiculoId === item.veiculoid), 1);
           this.veiculos.push(this.veiculoModel);
         }
       });
