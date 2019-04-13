@@ -1,0 +1,146 @@
+<div class="row">
+  <!--PARA TER UM ESPAÇO ENTRE OS EXPANSION-PANEL-->
+    
+</div>
+
+<div class="row">
+  <div class="col s12 m2 l2">
+    <mat-form-field>
+      <input matInput type="number" placeholder="Código" [(ngModel)]="veiculoModel.id" required>
+    </mat-form-field>
+  </div>
+  <div class="col s12 m10 l10">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Placa" [(ngModel)]="veiculoModel.placa" required>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12 m6 l6">
+    <mat-form-field>
+      <input matInput type="number" placeholder="Renavan" [(ngModel)]="veiculoModel.renavan" required>
+    </mat-form-field>
+  </div>
+  <div class="col s12 m6 l6">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Chassi" [(ngModel)]="veiculoModel.chassi" required>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12 m6 l6">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Marca" [(ngModel)]="veiculoModel.marca" required>
+    </mat-form-field>
+  </div>
+  <div class="col s12 m6 l6">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Modelo" [(ngModel)]="veiculoModel.modelo" required>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12 m6 l6">
+    <mat-form-field>
+      <input matInput type="number" placeholder="Ano" [(ngModel)]="veiculoModel.ano" required>
+    </mat-form-field>
+  </div>
+  
+  <div class="col s12 m3 l3">
+    <mat-form-field>
+      <mat-label>Cor</mat-label>
+      <mat-select name="cor" [(ngModel)]="veiculoModel.corVeiculo">
+        <mat-option *ngFor="let cor of cores" [value]="cor">
+            {{cor.descricao}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row footer-btn">
+  <div class="button-row col s12">
+    <button mat-raised-button color="green" (click)="salvar()">Salvar</button>
+  </div>
+</div>
+
+<div class="row heading">
+  <div class="col s12">
+    <h2 class="title">Lista Veiculos</h2>
+    <div class="heading__tools">
+      <div class="search">
+        <mat-form-field>
+          <mat-icon>search</mat-icon>
+          <input matInput id="pesquisarId" name="pesquisar" placeholder="Pesquisar"
+            (keyup)="aplicarFiltro($event.target.value)">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <!--TABLE Veiculos-->
+  <div class="col s12 m12 l12">
+    <mat-table #table [dataSource]="dataSource" matSort class="table-striped">
+      <ng-container matColumnDef="actionsColumn">
+        <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button>
+            <mat-icon class="link_action" matTooltip="Excluir" (click)="excluir(element.veiculoID)">clear</mat-icon>
+          </button>
+          <button mat-icon-button>
+            <mat-icon class="link_action" matTooltip="Editar" (click)="editar(element.veiculoID)">create</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="codigo">
+        <!--CÓDIGO-->
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>>
+        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="placa">
+        <!--PLACA-->
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Placa </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.placa}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="renavan">
+        <!--RENAVAN-->
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Renavan </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.renavan}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="chassi">
+        <!--CHASSI-->
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Chassi </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.chassi}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="marca">
+        <!--MARCA-->
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Marca </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.marca}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="modelo">
+        <!--MODELO-->
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Modelo </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.modelo}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="ano">
+        <!--ANO-->
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Ano </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.ano}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="cor">
+        <!--COR-->
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Cor </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.corVeiculo.descricao}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayColumnsVeiculo"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayColumnsVeiculo;"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButton></mat-paginator>
+  </div>
+</div>
